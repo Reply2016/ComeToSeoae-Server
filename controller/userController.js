@@ -16,7 +16,7 @@ module.exports = {
         // 입력되지 않은 값이 있다면
         if (!userId || !password || !name || !nickname || !phone || !dept) {
             return await res.status(400).send({
-                message: "Bad Request"
+                message: "입력되지 않은 값 존재"
             });
         }
 
@@ -24,16 +24,17 @@ module.exports = {
         // ID 가 중복이라면
         if (!checkIdResult) {
             return await res.status(400).send({
-                message: "Bad Request"
+                message: "이미 사용중인 아이디입니다."
             });
         }
 
         try {
-            console.log("success");
+            const { code, json } = await User.signUp(userId, password, name, nickname, phone, dept)
+            res.status(code).send(json);
         } catch (err) {
             console.log(err);
             return await res.status(400).send({
-                message: "Bad Reqeust"
+                message: "test"
             });
         }
     },
@@ -43,8 +44,9 @@ module.exports = {
             userId,
             password,
             token
-        } = req.body
+        } = req.body;
 
+        // 요청에 아이디 혹은 패스워드 없으면 오류
         if (!userId || !password) {
             return await res.status(400).send({
                 message: "Bad Request"
