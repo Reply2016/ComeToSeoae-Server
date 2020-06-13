@@ -8,4 +8,6 @@ router.get('/', function (req, res, next) {
 
 router.use('/users', require('./users')); // 유저
 router.use('/mypage', require('./mypage')); // 마이페이지
+router.use('/receipts', require('./receipts')); // 영수증
+
 module.exports = router;
