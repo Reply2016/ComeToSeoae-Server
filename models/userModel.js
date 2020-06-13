@@ -1,6 +1,5 @@
 const pool = require('../module/pool');
 const jwt = require('../module/jwt');
-const { throw } = require('../config/dbConfig');
 
 module.exports = {
     // 1. 회원가입
